@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { Menu } from "antd";
+import 'antd/dist/reset.css';
 import Link from "next/link";
 import {
   AppstoreOutlined,

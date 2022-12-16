@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { Context } from "../../context";
 import { Button } from "antd";
+import 'antd/dist/reset.css';
 import axios from "axios";
 import {
   SettingOutlined,

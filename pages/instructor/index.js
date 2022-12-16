@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import InstructorRoute from "../../components/routes/InstructorRoute";
 import { Avatar } from "antd";
+import 'antd/dist/reset.css';
 import Link from "next/link";
 import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
 
@@ -37,7 +38,7 @@ const InstructorIndex = () => {
                 <div className="row">
                   <div className="col">
                     <Link
-                      href={`/instructor/course/view/${course._id}`}
+                      href={`/instructor/course/view/${course.slug}`}
                       className="pointer"
                     >
                       <li className="mt-2 text-primary">
