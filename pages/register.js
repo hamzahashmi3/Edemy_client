@@ -6,11 +6,14 @@ import Link from "next/link";
 import { Context } from "../context";
 import { useRouter } from "next/router";
 // import user from "../../server/models/user.model";
+import { Container, Row, Col } from 'react-bootstrap'
+
 
 const Register = () => {
-  const [name, setName] = useState("Ryan");
-  const [email, setEmail] = useState("ryan@gmail.com");
-  const [password, setPassword] = useState("123456");
+  
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
   const {
@@ -44,53 +47,39 @@ const Register = () => {
 
   return (
     <>
-      <h1 className="jumbotron text-center bg-primary square">Register</h1>
+      <Container>
+        <Row>
+          <Col md={6} className="bg-light m-auto mt-5 rounded-lg">
+            <h1 className="text-center square p-2">Register</h1>
+            <form onSubmit={handleSubmit}>
+              <div class="form-group">
+                <label for="exampleInputUser1">Username</label>
+                <input type="text" value={name} onChange={(e) => setName(e.target.value)} class="form-control" id="exampleInputUser1" aria-describedby="userHelp" placeholder="Enter full name" required />
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required />
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} class="form-control" id="exampleInputPassword1" placeholder="Password" required />
+              </div>
+              <button type="submit" disabled={!name || !email || !password || loading} class="btn btn-warning mt-3">
+                {loading ? <SyncOutlined spin /> : "Register"}
+              </button>
+            </form>
 
-      <div className="container col-md-4 offset-md-4 pb-5">
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            className="form-control mb-4 p-4"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Enter name"
-            required
-          />
+            <p className="text-center p-3">
+              Already have an account?{" "}
+              <Link href="/login" style={{ textDecoration: "none" }}>
+                Login
+              </Link>
+            </p>
+          </Col>
+        </Row>
+      </Container>
 
-          <input
-            type="email"
-            className="form-control mb-4 p-4"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter email"
-            required
-          />
-
-          <input
-            type="password"
-            className="form-control mb-4 p-4"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter password"
-            required
-          />
-
-          <button
-            type="submit"
-            className="btn btn-block btn-primary"
-            disabled={!name || !email || !password || loading}
-          >
-            {loading ? <SyncOutlined spin /> : "Submit"}
-          </button>
-        </form>
-
-        <p className="text-center p-3">
-          Already registered?{" "}
-          <Link href="/login" style={{ textDecoration: "none" }}>
-            Login
-          </Link>
-        </p>
-      </div>
     </>
   );
 };
