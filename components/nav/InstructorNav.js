@@ -16,8 +16,22 @@ const InstructorNav = () => {
         </li>
       </Link>
       <Link href="/instructor/course/create" style={{ textDecoration: "none" }}>
-        <li className={`nav-link ${current === "/instructor/course/create" && "active"}`}>
+        <li
+          className={`nav-link ${
+            current === "/instructor/course/create" && "active"
+          }`}
+        >
           Course Create
+        </li>
+      </Link>
+
+      <Link href="/instructor/revenue" style={{ textDecoration: "none" }}>
+        <li
+          className={`nav-link ${
+            current === "/instructor/revenue" && "active"
+          }`}
+        >
+          Revenue
         </li>
       </Link>
     </div>
