@@ -5,10 +5,12 @@ import { SyncOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { Context } from "../context";
 import { useRouter } from "next/router";
+import { Container, Row, Col } from 'react-bootstrap'
+
 
 const Login = () => {
-  const [email, setEmail] = useState("ryan@gmail.com");
-  const [password, setPassword] = useState("rrrrrr");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
   // state
@@ -52,50 +54,52 @@ const Login = () => {
 
   return (
     <>
-      <h1 className="jumbotron text-center bg-primary square">Login</h1>
+      <Container>
+        <Row>
+          <Col md={6} className="m-auto bg-light mt-5 rounded-lg">
+            <h1 className="text-center square p-2">Login</h1>
+            <form onSubmit={handleSubmit}>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input 
+                  type="email" 
+                  class="form-control" 
+                  id="exampleInputEmail1" 
+                  aria-describedby="emailHelp" 
+                  placeholder="Enter email" 
+                  value={email} 
+                  onChange={(e) => setEmail(e.target.value)} />
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input 
+                  type="password" 
+                  class="form-control" 
+                  id="exampleInputPassword1" 
+                  placeholder="Password" 
+                  value={password} 
+                  onChange={(e) => setPassword(e.target.value)} />
+              </div>
+              <button type="submit" class="btn btn-warning mt-3" disabled={!email || !password || loading}>
+                {loading ? <SyncOutlined spin /> : "Login"}
+              </button>
+            </form>
 
-      <div className="container col-md-4 offset-md-4 pb-5">
-        <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            className="form-control mb-4 p-4"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter email"
-            required
-          />
+            <p className="text-center pt-3">
+              Need an account?{" "}
+              <Link href="/register" style={{ textDecoration: "none" }}>
+                Register
+              </Link>
+            </p>
+            <p className="text-center">
+              <Link href="/forgot-password" style={{ textDecoration: "none" }}>
+                <div className="text-danger">Forgot password?</div>
+              </Link>
+            </p>
+          </Col>
+        </Row>
+      </Container>
 
-          <input
-            type="password"
-            className="form-control mb-4 p-4"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter password"
-            required
-          />
-
-          <button
-            type="submit"
-            className="btn btn-block btn-primary"
-            disabled={!email || !password || loading}
-          >
-            {loading ? <SyncOutlined spin /> : "Submit"}
-          </button>
-        </form>
-
-        <p className="text-center pt-3">
-          Not yet registered?{" "}
-          <Link href="/register" style={{ textDecoration: "none" }}>
-            Register
-          </Link>
-        </p>
-
-        <p className="text-center">
-          <Link href="/forgot-password" style={{ textDecoration: "none" }}>
-            <div className="text-danger">Forgot password</div>
-          </Link>
-        </p>
-      </div>
     </>
   );
 };
