@@ -1,5 +1,6 @@
 import { useReducer, createContext, useEffect } from "react";
 import axios from "axios";
+import Head from "next/head";
 import { useRouter, userRouter } from "next/router";
 
 // initial state
@@ -76,7 +77,14 @@ const Provider = ({ children }) => {
   }, []);
 
   return (
-    <Context.Provider value={{ state, dispatch }}>{children}</Context.Provider>
+    <>
+      <Head>
+          <title>NewYou - BeautyInstitute</title>
+      </Head>
+      <Context.Provider value={{ state, dispatch }}>
+        {children}
+      </Context.Provider>
+    </>
   );
 };
 

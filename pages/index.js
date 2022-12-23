@@ -1,35 +1,30 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import CourseCard from "../components/cards/CourseCard";
+import React from "react";
+import MainBanner from "../components/eLearningSchool/MainBanner";
+import Partner from "../components/eLearningSchool/Partner";
+import Features from "../components/eLearningSchool/Features";
+import AboutUs from "../components/eLearningSchool/AboutUs";
+import PopularCourses from "../components/eLearningSchool/PopularCourses";
+import FeedbackSliderWithFunFacts from "../components/eLearningSchool/FeedbackSliderWithFunFacts";
+import GetInstantCourses from "../components/eLearningSchool/GetInstantCourses";
+import LatestNews from "../components/Common/LatestNews";
+import ViewAllCourses from "../components/eLearningSchool/ViewAllCourses";
+import AffordableCertification from "../components/eLearningSchool/AffordableCertification";
 
 const Index = () => {
-    const [courses, setCourses] = useState([]);
+	return (
+		<>
+			<MainBanner />
+			<Partner />
+			<Features />
+			<AboutUs />
+			<PopularCourses />
+			<FeedbackSliderWithFunFacts />
+			<GetInstantCourses />
+			<LatestNews />
+			<ViewAllCourses />
+			<AffordableCertification />
+		</>
+	);
+};
 
-  useEffect(() => {
-    const fetchCourses = async () => {
-      const { data } = await axios.get("/api/courses");
-      setCourses(data);
-    };
-    fetchCourses();
-  }, []);
-    return (
-      <>
-      <h1 className="jumbotron text-center bg-primary square">
-        Online Education Marketplace
-      </h1>
-      <div className="container-fluid">
-        <div className="row">
-          {courses.map((course) => (
-            <div key={course._id} className="col-md-4">
-              {/* <pre>{JSON.stringify(courses)}</pre> */}
-              <CourseCard course={course} />
-            </div>
-          ))}
-        </div>
-      </div>
-    </>
-    );
-  };
-  
-  export default Index;
-  
+export default Index;
