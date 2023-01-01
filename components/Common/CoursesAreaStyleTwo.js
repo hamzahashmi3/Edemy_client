@@ -67,15 +67,15 @@ const CoursesAreaStyleTwo = () => {
 
 							<div className="advisor-content">
 								<h3>
-									<Link href="/profile">
-										<li>James Andy</li>
+									<Link href="#">
+										James Andy
 									</Link>
 								</h3>
-								<span>Project Management Expert</span>
+								<span>Beauty specilist</span>
 							</div>
 						</div>
 					</SwiperSlide>
-					<SwiperSlide>
+					{/* <SwiperSlide>
 						<div className="single-advisor-item">
 							<div className="advisor-image">
 								<img
@@ -248,7 +248,7 @@ const CoursesAreaStyleTwo = () => {
 								<span>QA Project Expert</span>
 							</div>
 						</div>
-					</SwiperSlide>
+					</SwiperSlide> */}
 				</Swiper>
 			</div>
 		</div>

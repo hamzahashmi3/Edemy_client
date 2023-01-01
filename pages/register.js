@@ -6,11 +6,9 @@ import Link from "next/link";
 import { Context } from "../context";
 import { useRouter } from "next/router";
 // import user from "../../server/models/user.model";
-import { Container, Row, Col } from 'react-bootstrap'
-
+import { Container, Row, Col } from "react-bootstrap";
 
 const Register = () => {
-  
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -54,18 +52,50 @@ const Register = () => {
             <form onSubmit={handleSubmit}>
               <div class="form-group">
                 <label for="exampleInputUser1">Username</label>
-                <input type="text" value={name} onChange={(e) => setName(e.target.value)} class="form-control" id="exampleInputUser1" aria-describedby="userHelp" placeholder="Enter full name" required />
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  class="form-control"
+                  id="exampleInputUser1"
+                  aria-describedby="userHelp"
+                  placeholder="Enter full name"
+                  required
+                />
               </div>
               <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required />
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                  placeholder="Enter email"
+                  required
+                />
+                <small id="emailHelp" class="form-text text-muted">
+                  We'll never share your email with anyone else.
+                </small>
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} class="form-control" id="exampleInputPassword1" placeholder="Password" required />
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  class="form-control"
+                  id="exampleInputPassword1"
+                  placeholder="Password"
+                  required
+                />
               </div>
-              <button type="submit" disabled={!name || !email || !password || loading} class="btn btn-warning mt-3">
+              <button
+                type="submit"
+                disabled={!name || !email || !password || loading}
+                class="btn btn-warning mt-3"
+              >
                 {loading ? <SyncOutlined spin /> : "Register"}
               </button>
             </form>
@@ -79,7 +109,6 @@ const Register = () => {
           </Col>
         </Row>
       </Container>
-
     </>
   );
 };

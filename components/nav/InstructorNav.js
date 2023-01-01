@@ -9,18 +9,30 @@ const InstructorNav = () => {
   }, [process.browser && window.location.pathname]);
 
   return (
-    <div className="nav flex-column nav-pills">
-      <Link href="/instructor" style={{ textDecoration: "none" }}>
-        <li className={`nav-link ${current === "/instructor" && "active"}`}>
-          Dashboard
+    <div className="btn-box">
+    <Link href="/instructor">
+        <li className="default-btn">
+            D a s h b o a r d<span></span>
         </li>
-      </Link>
-      <Link href="/instructor/course/create" style={{ textDecoration: "none" }}>
-        <li className={`nav-link ${current === "/instructor/course/create" && "active"}`}>
-          Course Create
+    </Link>
+    <Link href="/instructor/course/create">
+        <li className="default-btn">
+            N e w C o u r s e<span></span>
         </li>
-      </Link>
-    </div>
+    </Link>
+</div>
+    // <div className="nav flex-column nav-pills">
+    //   <Link href="/instructor" style={{ textDecoration: "none" }}>
+    //     <li className={`nav-link ${current === "/instructor" && "active"}`}>
+    //       Dashboard
+    //     </li>
+    //   </Link>
+    //   <Link href="/instructor/course/create" style={{ textDecoration: "none" }}>
+    //     <li className={`nav-link ${current === "/instructor/course/create" && "active"}`}>
+    //       Course Create
+    //     </li>
+    //   </Link>
+    // </div>
   );
 };
 

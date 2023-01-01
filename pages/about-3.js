@@ -22,9 +22,9 @@ const About3 = () => {
             <CoursesAreaStyleTwo />
             <FunFactsTwo />
 
-            <div className="ptb-100">
+            {/* <div className="ptb-100">
                 <PremiumAccessTwo />
-            </div>
+            </div> */}
         </React.Fragment>
     )
 }

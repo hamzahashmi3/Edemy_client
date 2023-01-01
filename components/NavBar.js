@@ -1,65 +1,113 @@
-import React from 'react';
-import Link from "../utils/ActiveLink"
+import React from "react";
+// import Link from "../utils/ActiveLink";
+import Link from "next/link";
+
+import { useState, useEffect, useContext } from "react";
+import { Menu } from "antd";
+import "antd/dist/reset.css";
+import {
+  AppstoreOutlined,
+  CoffeeOutlined,
+  LoginOutlined,
+  LogoutOutlined,
+  UserAddOutlined,
+  CarryOutOutlined,
+  TeamOutlined,
+} from "@ant-design/icons";
+import { Context } from "../context";
+import axios from "axios";
+import { useRouter } from "next/router";
+import { toast } from "react-toastify";
+
+const { Item, SubMenu, ItemGroup } = Menu;
 
 const Navbar = () => {
-    const [menu, setMenu] = React.useState(true)
+  const [current, setCurrent] = useState("");
 
-    const toggleNavbar = () => {
-        setMenu(!menu)
-    }
+  const { state, dispatch } = useContext(Context);
+  const { user } = state;
 
-    React.useEffect(() => {
-        let elementId = document.getElementById("navbar");
-        document.addEventListener("scroll", () => {
-            if (window.scrollY > 170) {
-                elementId.classList.add("is-sticky");
-            } else {
-                elementId.classList.remove("is-sticky");
-            }
-        });
-        window.scrollTo(0, 0); 
-    })
- 
-    const classOne = menu ? 'collapse navbar-collapse' : 'collapse navbar-collapse show';
-    const classTwo = menu ? 'navbar-toggler navbar-toggler-right collapsed' : 'navbar-toggler navbar-toggler-right';
+  const router = useRouter();
 
-    return (
-        <React.Fragment>
-            <div id="navbar" className="navbar-area">
-                <div className="edemy-nav">
-                    <div className="container-fluid">
-                        <div className="navbar navbar-expand-lg navbar-light">
-              
-                            <Link href="/">
-                                <div onClick={toggleNavbar} className="navbar-brand">
-                                    <img src="/images/logo4.png" alt="logo" />
-                                </div> 
-                            </Link>
+  useEffect(() => {
+    process.browser && setCurrent(window.location.pathname);
+  }, [process.browser && window.location.pathname]);
 
-                            <button 
-                                onClick={toggleNavbar} 
-                                className={classTwo}
-                                type="button" 
-                                data-toggle="collapse" 
-                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
-                                aria-expanded="false" 
-                                aria-label="Toggle navigation"
-                            >
-                                <span className="icon-bar top-bar"></span>
-                                <span className="icon-bar middle-bar"></span>
-                                <span className="icon-bar bottom-bar"></span>
-                            </button>
+  const logout = async () => {
+    dispatch({ type: "LOGOUT" });
+    window.localStorage.removeItem("user");
+    const { data } = await axios.get("/api/logout");
+    toast(data.message);
+    router.push("/profile-authentication");
+  };
 
-                            <div className={classOne} id="navbarSupportedContent">
-                                <form className="search-box">
-                                    <input type="text" className="input-search" placeholder="Search for anything" />
-                                    <button type="submit">
-                                        <i className="flaticon-search"></i>
-                                    </button>
-                                </form>
+  // ----------------------------------------
+  const [menu, setMenu] = React.useState(true);
 
-                                <ul className="navbar-nav">
-                                    {/* <li className="nav-item">
+  const toggleNavbar = () => {
+    setMenu(!menu);
+  };
+
+  React.useEffect(() => {
+    let elementId = document.getElementById("navbar");
+    document.addEventListener("scroll", () => {
+      if (window.scrollY > 170) {
+        elementId.classList.add("is-sticky");
+      } else {
+        elementId.classList.remove("is-sticky");
+      }
+    });
+    window.scrollTo(0, 0);
+  });
+
+  const classOne = menu
+    ? "collapse navbar-collapse"
+    : "collapse navbar-collapse show";
+  const classTwo = menu
+    ? "navbar-toggler navbar-toggler-right collapsed"
+    : "navbar-toggler navbar-toggler-right";
+
+  return (
+    <React.Fragment>
+      <div id="navbar" className="navbar-area">
+        <div className="edemy-nav">
+          <div className="container-fluid">
+            <div className="navbar navbar-expand-lg navbar-light">
+              <Link href="/">
+                <div onClick={toggleNavbar} className="navbar-brand">
+                  <img src="/images/logo4.png" alt="logo" />
+                </div>
+              </Link>
+
+              <button
+                onClick={toggleNavbar}
+                className={classTwo}
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span className="icon-bar top-bar"></span>
+                <span className="icon-bar middle-bar"></span>
+                <span className="icon-bar bottom-bar"></span>
+              </button>
+
+              <div className={classOne} id="navbarSupportedContent">
+                <form className="search-box">
+                  <input
+                    type="text"
+                    className="input-search"
+                    placeholder="Search for anything"
+                  />
+                  <button type="submit">
+                    <i className="flaticon-search"></i>
+                  </button>
+                </form>
+
+                <ul className="navbar-nav">
+                  {/* <li className="nav-item">
                                         <Link href="#" activeClassName="active">
                                             <li onClick={e => e.preventDefault()} className="nav-link">
                                                 Home <i className='bx bx-chevron-down'></i>
@@ -123,42 +171,59 @@ const Navbar = () => {
                                         </ul>
                                     </li> */}
 
-                                    <li className="nav-item" style={{marginTop: "8%"}}>
-                                        <Link href="/">
-                                            <li onClick={e => e.preventDefault()} className="nav-link">
-                                                Home 
-                                            </li> 
-                                        </Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link href="/courses-1">
-                                            <li className="nav-link">
-                                                Courses
-                                            </li> 
-                                        </Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link href="/about-3">
-                                            <li className="nav-link">
-                                                About Us 
-                                            </li> 
-                                        </Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link href="/contact">
-                                            <li className="nav-link">
-                                                Contact Us
-                                            </li> 
-                                        </Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        {/* <Link href="#">
+                  <li
+                    className="nav-item"
+                    style={
+                      user && user.role && user.role.includes("Instructor")
+                        ? { marginTop: "4.5%" }
+                        : user && user.role && user.role.includes("Instructor")
+                        ? { marginTop: "6%" }
+                        : { marginTop: "6%" }
+                    }
+                  >
+                    <Link href="/">
+                      <li className="nav-link">Home</li>
+                    </Link>
+                  </li>
+                  {user && user.role && user.role.includes("Instructor") ? (
+                    <li className="nav-item">
+                      <Link href="/instructor/course/create">
+                        <li className="nav-link">Create Course</li>
+                      </Link>
+                    </li>
+                  ) : (
+                    <li className="nav-item">
+                      {/* <Link 
+                        href="/user/become-instructor"
+                        style={{ textDecoration: "none" }}
+                      >
+                        Become Instructor
+                      </Link> */}
+                    </li>
+                  )}
+                  <li className="nav-item">
+                    <Link href="/courses-1">
+                      <li className="nav-link">Courses</li>
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link href="/about-3">
+                      <li className="nav-link">About Us</li>
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link href="/contact">
+                      <li className="nav-link">Contact Us</li>
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    {/* <Link href="#">
                                             <li onClick={e => e.preventDefault()} className="nav-link">
                                                 Pages <i className='bx bx-chevron-down'></i>
                                             </li> 
                                         </Link> */}
 
-                                        {/* <ul className="dropdown-menu">
+                    {/* <ul className="dropdown-menu">
                                             <li className="nav-item">
                                                 <Link href="#">
                                                     <li onClick={e => e.preventDefault()} className="nav-link">
@@ -253,16 +318,16 @@ const Navbar = () => {
                                                 </Link>
                                             </li>
                                         </ul> */}
-                                    </li>
- 
-                                    <li className="nav-item megamenu">
-                                        {/* <Link href="#">
+                  </li>
+
+                  <li className="nav-item megamenu">
+                    {/* <Link href="#">
                                             <li onClick={e => e.preventDefault()} className="nav-link">
                                                 Courses <i className='bx bx-chevron-down'></i>
                                             </li> 
                                         </Link> */}
 
-                                        {/* <ul className="dropdown-menu">
+                    {/* <ul className="dropdown-menu">
                                             <li className="nav-item">
                                                 <div className="container">
                                                     <div className="row">
@@ -515,9 +580,9 @@ const Navbar = () => {
                                                 </div>
                                             </li>
                                         </ul> */}
-                                    </li>
+                  </li>
 
-                                    {/* <li className="nav-item">
+                  {/* <li className="nav-item">
                                         <Link href="#">
                                             <li onClick={e => e.preventDefault()} className="nav-link">
                                                 Events <i className='bx bx-chevron-down'></i>
@@ -538,8 +603,8 @@ const Navbar = () => {
                                             </li>
                                         </ul>
                                     </li> */}
- 
-                                    {/* <li className="nav-item">
+
+                  {/* <li className="nav-item">
                                         <Link href="#">
                                             <li onClick={e => e.preventDefault()} className="nav-link">
                                                 Shop <i className='bx bx-chevron-down'></i>
@@ -578,8 +643,8 @@ const Navbar = () => {
                                             </li>
                                         </ul>
                                     </li> */}
- 
-                                    {/* <li className="nav-item">
+
+                  {/* <li className="nav-item">
                                         <Link href="#">
                                             <li onClick={e => e.preventDefault()} className="nav-link">
                                                 Blog <i className='bx bx-chevron-down'></i>
@@ -640,10 +705,41 @@ const Navbar = () => {
                                             </li>
                                         </ul>
                                     </li> */}
-                                </ul>
+                  {user !== null && (
+                    <li className="nav-item">
+                      <Link href="#">
+                        <li
+                          onClick={(e) => e.preventDefault()}
+                          className="nav-link"
+                        >
+                          {user ? user.name : "User"}{" "}
+                          <i className="bx bx-chevron-down"></i>
+                        </li>
+                      </Link>
 
-                                <div className="others-option d-flex align-items-center">
-                                    {/* <div className="option-item">
+                      <ul className="dropdown-menu">
+                        <li className="nav-item">
+                          <Link href="/user" activeClassName="active">
+                            <li onClick={toggleNavbar} className="nav-link">
+                              Dashboard
+                            </li>
+                          </Link>
+                        </li>
+
+                        <li className="nav-item">
+                          <Link href="#" activeClassName="active">
+                            <li onClick={logout} className="nav-link">
+                              Logout
+                            </li>
+                          </Link>
+                        </li>
+                      </ul>
+                    </li>
+                  )}
+                </ul>
+
+                <div className="others-option d-flex align-items-center">
+                  {/* <div className="option-item">
                                         <div className="cart-btn">
                                             <Link href="/cart">
                                                 <li><i className='flaticon-shopping-cart'></i> <span>3</span></li> 
@@ -651,21 +747,32 @@ const Navbar = () => {
                                         </div>
                                     </div> */}
 
-                                    <div className="option-item">
-                                        <Link href="/profile-authentication">
-                                            <li className="default-btn">
-                                                <i className="flaticon-user"></i> Login/Register <span></span>
-                                            </li> 
-                                        </Link>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                  <div className="option-item">
+                    {user && user.role && user.role.includes("Instructor") && (
+                      <Link href="/instructor">
+                        <li className="default-btn">
+                          <i className="flaticon-user"></i> Instructor
+                          <span></span>
+                        </li>
+                      </Link>
+                    )}
+                    {user === null && (
+                      <Link href="/profile-authentication">
+                        <li className="default-btn">
+                          <i className="flaticon-user"></i> Login/Register{" "}
+                          <span></span>
+                        </li>
+                      </Link>
+                    )}
+                  </div>
                 </div>
+              </div>
             </div>
-        </React.Fragment>
-    );
-}
+          </div>
+        </div>
+      </div>
+    </React.Fragment>
+  );
+};
 
 export default Navbar;
