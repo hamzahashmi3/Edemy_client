@@ -96,15 +96,6 @@ const MainBanner = () => {
                                 </button>
                               }
                             />
-
-                            {/* <ul className="courses-box-footer d-flex justify-content-between align-items-center">
-                      <li>
-                        <i className="flaticon-agenda"></i> 15 Lessons
-                      </li>
-                      <li>
-                        <i className="flaticon-people"></i> 145 Students
-                      </li>
-                    </ul> */}
                           </div>
                         </div>
                       </div>

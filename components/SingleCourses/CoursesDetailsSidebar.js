@@ -25,17 +25,7 @@ const CoursesDetailsSidebar = ({
   const openModal = () => {
     setIsOpen(!isOpen);
   };
-  const {
-    name,
-    description,
-    instructor,
-    updatedAt,
-    lessons,
-    image,
-    price,
-    paid,
-    category,
-  } = course;
+  
   //   console.log(course,"course")
   return (
     <React.Fragment>
@@ -155,7 +145,7 @@ const CoursesDetailsSidebar = ({
             <Link href="#">
             <li
               className="default-btn"
-              onClick={paid ? handlePaidEnrollment : handleFreeEnrollment}
+              onClick={course?.paid ? handlePaidEnrollment : handleFreeEnrollment}
             >
               <i className="flaticon-tag"></i>{" "}
               {user

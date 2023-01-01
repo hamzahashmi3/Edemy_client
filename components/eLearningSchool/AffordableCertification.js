@@ -10,7 +10,7 @@ const AffordableCertification = () => {
                     <h2>Get Your Quality Skills Certificate Through Online Exam</h2>
                     <p>Students friendly pricing for the certificate programs helps individuals to get their skill certificate easier than ever!</p>
                     
-                    <Link href="/membership-levels">
+                    <Link href="//profile-authentication">
                         <li className="default-btn">
                             <i className="flaticon-user"></i> Get Started Now <span></span>
                         </li>
